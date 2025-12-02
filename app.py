@@ -8,8 +8,7 @@ from routes.ai_routes import ai_router
 app = FastAPI()
 
 allowed_origins = [
-    "https://ballin-wear.onrender.com/",
-    "http://localhost:5173",
+    "https://ballin-wear.onrender.com",
 ]
 
 initialize_agent()
