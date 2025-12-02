@@ -17,7 +17,8 @@ print(SQLALCHEMY_DATABASE_URL)
 # Create engine with SSL
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
-    echo=True,
+    pool_pre_ping=True,
+    pool_recycle=180,
     connect_args={
         "ssl": {"ssl_ca": None, "check_hostname": True}  
     }
