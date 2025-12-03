@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from zoneinfo import ZoneInfo
 from langchain.tools import tool
 from sqlalchemy import desc, func, literal
 from sqlalchemy.orm import joinedload
@@ -51,7 +52,7 @@ def get_top_products(filter: str = "all") -> str:
     limit = 10
     db = SessionLocal()
     try:
-        now = datetime.now()
+        now = datetime.now(ZoneInfo("Asia/Manila"))
         year = now.year
         month = now.month
 
@@ -113,7 +114,6 @@ def get_top_products(filter: str = "all") -> str:
             f"Quantity Sold: {int(row.total_sold)}"
             for row in top_products
         ])
-        print(result_str)
         return result_str
     except Exception as e:
         print(e)
@@ -151,9 +151,11 @@ def get_order_details(order_id: str) -> str:
         # Format enums and order date
         status = order.status.value if order.status else "N/A"
         payment_method = order.payment_method.value if order.payment_method else "N/A"
-        order_date = order.order_date.strftime("%B %d, %Y %I:%M %p") if order.order_date else "N/A"
         customer_name = f"{order.customer.firstname} {order.customer.lastname}" if order.customer else "N/A"
-
+        utc_date = order.order_date.replace(tzinfo=ZoneInfo("UTC"))
+        manila_date = utc_date.astimezone(ZoneInfo("Asia/Manila"))
+        formatted = manila_date.strftime("%B %d, %Y %I:%M %p")
+        
         # Summary
         summary = f"""
 Order ID: {order.order_id}
@@ -164,7 +166,7 @@ Payment Method: {payment_method}
 Subtotal: ₱{order.subtotal}
 Shipping Fee: Free
 Total: ₱{order.total}
-Order Date: {order_date}
+Order Date: {formatted}
 """
 
         # Cancellation reason

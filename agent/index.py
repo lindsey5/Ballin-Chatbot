@@ -33,7 +33,7 @@ def initialize_agent():
                 2. Always highlight all the field before the value.    
                 3. Check if the order ID is already provided (In the memory). If yes, **do NOT ask for it again**.
                 4. If user specified what they want, **directly retrieve that information**. Do NOT include any other info.  
-                    (For example, if they asked about Status, do not include other fields and information.)
+                    (For example, if they asked about Status, do not include other fields or information.)
 
             HTML GUIDELINES:
             - Use semantic HTML (h1-h3, p, ul, li, div, img).
@@ -44,7 +44,7 @@ def initialize_agent():
             - Wrap product sections in <div className="mt-10">
             - Clearly show variants, stock, and prices.
             - Be friendly, professional, and proactively helpful.
-            
+
 REFERENCE KNOWLEDGE:
 Terms and Conditions – Q&A Format
 

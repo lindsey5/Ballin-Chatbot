@@ -9,6 +9,7 @@ app = FastAPI()
 
 allowed_origins = [
     "https://ballin-wear.onrender.com",
+    "http://localhost:5173"
 ]
 
 initialize_agent()
