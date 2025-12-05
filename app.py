@@ -23,6 +23,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def root():
+    try:
+        return JSONResponse(content={"response": ""})
+    except Exception as e:
+        print("Error in /:", str(e))
+        return JSONResponse(content={"error": "Internal Server Error"}, status_code=500)
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
